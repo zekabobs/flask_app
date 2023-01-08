@@ -10,9 +10,9 @@ post_tag = db.Table('post_tag',
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
+    title = db.Column(db.String(100), nullable=False, server_default=None)
     slug = db.Column(db.String(100), unique=True)
-    body = db.Column(db.Text)
+    body = db.Column(db.Text, nullable=False, server_default=None)
     created = db.Column(db.DateTime, default=datetime.now())
     tags = db.relationship('Tag', secondary=post_tag, backref=db.backref('posts'), lazy='dynamic')
 
@@ -30,7 +30,7 @@ class Post(db.Model):
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.String(50), nullable=False, server_default=None)
     slug = db.Column(db.String(50), unique=True)
 
     def __init__(self, *args, **kwargs):

@@ -8,12 +8,22 @@
 {% endblock %}
 
 {% block body %}
-    <form action="{{ url_for('posts.create_post')}}" method="post">
-        {% for field in form %}
-            <div class="form-group">
-                {{ field.label() }}
-                {{ field() }}
-            </div>
-        {% endfor %}
+    <div class="col-md-6">
+        <form action="{{url_for('posts.create_post')}}" method="POST">
+            {% if alert %}
+                <div class="alert alert-danger" role="alert">
+                    Something wrong. Try again.
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label(class='control-label') }}
+                    {{ field(class='form-control') }}
+                </div>
+            {% endfor %}
+            <br>
+            <button type="submit" class="btn btn-success">Create</button>
     </form>
+    </div>
 {% endblock %}
