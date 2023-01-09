@@ -36,14 +36,39 @@ def create_post():
     return render_template('posts/create_post.html', form=form, alert=alert)
 
 
+@posts.route('/<slug>/edit', methods=['GET', 'POST'])
+def edit_post(slug):
+    editing_post = Post.query.filter(Post.slug == slug).first()
+
+    if request.method == 'POST':
+        form = PostForm(formdata=request.form, obj=editing_post)
+        form.populate_obj(editing_post)
+        db.session.commit()
+        return redirect(url_for('posts.post_detail', slug=editing_post.slug))
+
+    form = PostForm(title=editing_post.title, body=editing_post.body, created=editing_post.created)
+    form.created.render_kw = {'disabled': 'disabled'}
+    return render_template('posts/edit_post.html', form=form, post=editing_post)
+
+
 @posts.route('/')
 def index():
     q = request.args.get('q', '')
+    page = request.args.get('page', '')
+
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
     if q:
         all_posts = Post.query.filter(Post.title.contains(q) | Post.body.contains(q)).all()
     else:
         all_posts = Post.query.order_by(Post.created.desc())
-    return render_template('posts/index.html', posts=all_posts)
+
+    pages = all_posts.paginate(page=page, per_page=5)
+
+    return render_template('posts/index.html', posts=all_posts, pages=pages)
 
 
 @posts.route('/<slug>')
