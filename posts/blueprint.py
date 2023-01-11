@@ -46,8 +46,7 @@ def edit_post(slug):
         db.session.commit()
         return redirect(url_for('posts.post_detail', slug=editing_post.slug))
 
-    form = PostForm(title=editing_post.title, body=editing_post.body, created=editing_post.created)
-    form.created.render_kw = {'disabled': 'disabled'}
+    form = PostForm(title=editing_post.title, body=editing_post.body)
     return render_template('posts/edit_post.html', form=form, post=editing_post)
 
 

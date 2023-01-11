@@ -9,6 +9,7 @@ class Config(object):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATEBASE_URI')
+    SECRET_KEY = 'MWYyZDFlMmU2N2Rm'
 
 
 class ProductionConfig(Config):
