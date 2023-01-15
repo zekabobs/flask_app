@@ -1,16 +1,12 @@
-{% extends 'base.html' %}
+<head>
 {% block links %}
+    <title>{% block title %}User{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
-
-{% block title %}User{% endblock %}
-
-{% block body %}
-
-
-{% block styles %}
+ <style>
+ {% block styles %}
 a:hover,a:focus{
  outline: none;
  text-decoration: none;
@@ -177,6 +173,11 @@ a:hover,a:focus{
  .tab{ padding: 40px 20px; }
 }
 {% endblock %}
+</style>
+</head>
+
+<body>
+{% block body %}
 <div class="container">
  <div class="row">
  <div class="col-md-offset-3 col-md-6">
@@ -244,3 +245,4 @@ a:hover,a:focus{
 </div><!-- /.row -->
 </div><!-- /.container -->
 {% endblock %}
+</body>

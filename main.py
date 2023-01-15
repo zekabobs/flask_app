@@ -2,13 +2,13 @@ from app import app
 from app import db
 
 from posts.blueprint import posts
+from user.blueprint import user
+
 import view
 
-from models import Tag
-from models import Post
-from models import post_tag
-
 app.register_blueprint(posts, url_prefix='/blog')
+app.register_blueprint(user, url_prefix='/user')
+
 
 if __name__ == '__main__':
     with app.app_context():

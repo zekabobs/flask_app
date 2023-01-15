@@ -59,10 +59,10 @@ roles_users = db.Table(
 )
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    email = db.Column(db.String(50), unique=True, nullable=False, server_default=None)
-    password = db.Column(db.String(50), nullable=False, server_default=None)
+    email = db.Column(db.String(100), unique=True, nullable=False, server_default=None)
+    password = db.Column(db.String(255), nullable=False, server_default=None)
     active = db.Column(db.Boolean())
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 

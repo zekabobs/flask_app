@@ -65,11 +65,12 @@ def index():
         page = 1
 
     if q:
-        all_posts = Post.query.filter(Post.title.contains(q) | Post.body.contains(q)).all()
+        all_posts = Post.query.filter(Post.title.contains(q) | Post.body.contains(q))
+
     else:
         all_posts = Post.query.order_by(Post.created.desc())
 
-    pages = all_posts.paginate(page=page, per_page=5)
+    pages = all_posts.paginate(page=page, per_page=6)
 
     return render_template('posts/index.html', posts=all_posts, pages=pages)
 
