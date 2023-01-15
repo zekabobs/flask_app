@@ -1,5 +1,13 @@
 from flask import Blueprint
 from flask import render_template
+from flask import redirect
+
+from flask_security import (
+    login_user,
+    logout_user,
+    user_registered,
+    AnonymousUser
+)
 
 user = Blueprint('user', __name__, template_folder='templates')
 
@@ -10,14 +18,15 @@ def index():
 
 
 @user.route('/login')
-@user.route('/register')
 def user_login():
-    pass
+    return render_template('user/index.html')
 
 
-@user.route('/logout')
+@user.route('/logoutA')
 def user_logout():
     pass
 
 
-
+@user.route('/reset')
+def user_reset():
+    pass
