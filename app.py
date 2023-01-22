@@ -20,6 +20,8 @@ from models import *
 admin = Admin(app)
 admin.add_view(ModelView(Post, db.session))
 admin.add_view(ModelView(Tag, db.session))
+admin.add_view(ModelView(Role, db.session))
+
 
 # Flask-Security
 

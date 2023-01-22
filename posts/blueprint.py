@@ -44,6 +44,9 @@ def create_post():
 def edit_post(slug):
     editing_post = Post.query.filter(Post.slug == slug).first()
 
+    if not editing_post:
+        return redirect(url_for('posts.index'))
+
     if request.method == 'POST':
         form = PostForm(formdata=request.form, obj=editing_post)
         form.populate_obj(editing_post)
@@ -78,12 +81,16 @@ def index():
 @posts.route('/<slug>')
 def post_detail(slug):
     post = Post.query.filter(Post.slug == slug).first()
-    tags = post.tags
-    return render_template('posts/post_detail.html', post=post, tags=tags)
+    if post:
+        tags = post.tags
+        return render_template('posts/post_detail.html', post=post, tags=tags)
+    return redirect(url_for('posts.index'))
 
 
 @posts.route('/tag/<slug>')
 def tag_detail(slug):
     tag = Tag.query.filter(Tag.slug == slug).first()
-    posts_tag = tag.posts
-    return render_template('posts/tag_detail.html', tag=tag, posts=posts_tag)
+    if tag:
+        posts_tag = tag.posts
+        return render_template('posts/tag_detail.html', tag=tag, posts=posts_tag)
+    return redirect(url_for('posts.index'))

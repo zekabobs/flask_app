@@ -11,6 +11,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATEBASE_URI')
     SECRET_KEY = 'MWYyZDFlMmU2N2Rm'
 
+    SECURITY_REGISTERABLE = True
     SECURITY_PASSWORD_SALT = 'mysalt18'
     SECURITY_PASSWORD_HASH = 'bcrypt'
 
