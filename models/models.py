@@ -66,8 +66,14 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean())
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 
+    def __repr__(self):
+        return '{}'.format(self.email)
+
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False, server_default=None)
     description = db.Column(db.String(255))
+
+    def __repr__(self):
+        return '{}'.format(self.name)

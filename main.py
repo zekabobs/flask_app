@@ -7,7 +7,7 @@ from user.blueprint import user
 import view
 
 app.register_blueprint(posts, url_prefix='/blog')
-app.register_blueprint(user, url_prefix='/user')
+app.register_blueprint(user, url_prefix='/users')
 
 
 if __name__ == '__main__':
