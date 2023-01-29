@@ -13,6 +13,7 @@ from .forms import PostForm
 
 from app import db, app
 
+from flask_security import current_user
 
 posts = Blueprint('posts', __name__, template_folder='templates')
 
@@ -42,10 +43,7 @@ def create_post():
 @posts.route('/<slug>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(slug):
-    editing_post = Post.query.filter(Post.slug == slug).first()
-
-    if not editing_post:
-        return redirect(url_for('posts.index'))
+    editing_post = Post.query.filter(Post.slug == slug).first_or_404()
 
     if request.method == 'POST':
         form = PostForm(formdata=request.form, obj=editing_post)
@@ -59,6 +57,7 @@ def edit_post(slug):
 
 @posts.route('/')
 def index():
+    print(dir(current_user))
     q = request.args.get('q', '')
     page = request.args.get('page', '')
 
@@ -80,17 +79,13 @@ def index():
 
 @posts.route('/<slug>')
 def post_detail(slug):
-    post = Post.query.filter(Post.slug == slug).first()
-    if post:
-        tags = post.tags
-        return render_template('posts/post_detail.html', post=post, tags=tags)
-    return redirect(url_for('posts.index'))
+    post = Post.query.filter(Post.slug == slug).first_or_404()
+    tags = post.tags
+    return render_template('posts/post_detail.html', post=post, tags=tags)
 
 
 @posts.route('/tag/<slug>')
 def tag_detail(slug):
-    tag = Tag.query.filter(Tag.slug == slug).first()
-    if tag:
-        posts_tag = tag.posts
-        return render_template('posts/tag_detail.html', tag=tag, posts=posts_tag)
-    return redirect(url_for('posts.index'))
+    tag = Tag.query.filter(Tag.slug == slug).first_or_404()
+    posts_tag = tag.posts
+    return render_template('posts/tag_detail.html', tag=tag, posts=posts_tag)
