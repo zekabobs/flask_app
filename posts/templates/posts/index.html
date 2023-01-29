@@ -37,7 +37,7 @@ Posts
                 </li>
             </ul>
             </div>
-            <p>{{ post.body }}</p>
+            <p>{{ post.body[:195] }}</p>
             <a href="{{ url_for('posts.post_detail', slug=post.slug) }}" class="btn1 btn-8 btn-8c">Смотреть</a>
         <div class="clearfix"></div>
         </div>

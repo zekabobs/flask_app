@@ -13,7 +13,6 @@ from .forms import PostForm
 
 from app import db, app
 
-from flask_security import current_user
 
 posts = Blueprint('posts', __name__, template_folder='templates')
 
@@ -57,7 +56,6 @@ def edit_post(slug):
 
 @posts.route('/')
 def index():
-    print(dir(current_user))
     q = request.args.get('q', '')
     page = request.args.get('page', '')
 
